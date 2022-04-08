@@ -110,5 +110,9 @@ contract CustomExecutionContract {
         if (uint8(b) < 10) return bytes1(uint8(b) + 0x30);
         else return bytes1(uint8(b) + 0x57);
     }
+
+    function concatenate(string memory s1, string memory s2) public pure returns (string memory) {
+        return string(abi.encodePacked(s1, s2));
+    }
   
 }
