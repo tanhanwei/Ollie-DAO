@@ -2,15 +2,11 @@
 
 pragma solidity ^0.8.13;
 
-interface INft {
+interface IToken {
     function owner() external view returns (address);
     function name() external view returns (string calldata);
     function balanceOf(address) external view returns (uint256);
-    //function createProfile(DataTypes.CreateProfileData calldata vars) external;
-}
-
-interface ICrypto {
-    function balanceOf(address) external view returns (uint256);
+    function totalSupply() external view returns (uint256);
 }
 
 interface IDao {
@@ -28,7 +24,10 @@ contract OllieDAO {
         bool exist;
     }
 
-    mapping (address => Dao) project; //1 Project, 1 DAO. We'll use project address to query for dao address
+    
+    mapping (address => address[]) userDaos; //accessed by userDaos[WALLET_ADD][n] to get Dao address
+
+    mapping (address => Dao) project; //1 Project, 1 DAO. We'll use token project address to query for dao address
 
     function createDAO(address _project, bool _isERC721, address[] memory _admins) public payable{
         require(msg.sender == getNftProjectOwner(_project), "Unauthorised, user is not the project owner.");
@@ -45,7 +44,7 @@ contract OllieDAO {
     }
 
     function getNftProjectOwner (address _nft) private view returns (address){
-        return INft(_nft).owner();
+        return IToken(_nft).owner();
     }
 
     function getAllDaos() public view returns (address[] memory) {
@@ -56,18 +55,22 @@ contract OllieDAO {
         return IDao(dao).getAdmins();
     }
 
+    function addUserDao(address _dao) public {
+        userDaos[msg.sender].push(_dao);
+    }
+
 }
 
 contract CustomDao {
-    struct Dao {
-        address creator;
-        address project;
-        bool isERC721;
-        address[] admins;
-        Proposal[] proposals;
-    }
+    // struct Dao {
+    //     address creator;
+    //     address project;
+    //     bool isERC721;
+    //     address[] admins;
+    //     Proposal[] proposals;
+    // }
 
-    Dao dao;
+    //Dao dao;
 
     address public creator;
     address public project;
@@ -82,6 +85,30 @@ contract CustomDao {
         uint duration;
         string evidence;
         address execution; //smart contract that handles execution
+
+        uint256 votes;
+        uint256[] votedToken; //for ERC721
+        address[] votedAccount; //for ERC20
+        uint256 totalSupply;
+        VoteType voteType;
+        
+        uint256 challengeCount;
+        bool isChallenged;
+        uint256 challengeTo;
+        uint256 challengeFrom;
+    }
+
+    
+
+    //Relative
+    //- Minno. of vote = total no. of admins (All admins must vote)
+    //- To win, needs 2/3 of total votes
+    //Absolute
+    //- Min no. of votes = totalSupply
+    //-To win, needs 2/3 of totalSupply
+    enum VoteType {
+        RELATIVE,
+        ABSOLUTE
     }
 
     enum Executor {
@@ -98,34 +125,39 @@ contract CustomDao {
     }
 
     constructor(address _creator, address _project, bool _isERC721, address[] memory _admins){
-        dao.creator = _creator;
-        dao.project = _project;
-        dao.isERC721 = _isERC721;
-        dao.admins = _admins;
+        // dao.creator = _creator;
+        // dao.project = _project;
+        // dao.isERC721 = _isERC721;
+        // dao.admins = _admins;
+
+        creator = _creator;
+        project = _project;
+        isERC721 = _isERC721;
+        admins = _admins;
     }
 
     // TODO Don't overload data return
-    function getDao() public view returns (Dao memory){
-        return dao;
-    }
+    // function getDao() public view returns (Dao memory){
+    //     return dao;
+    // }
 
     function getAdmins() public view returns (address[] memory){
-        return dao.admins;
+        return admins;
     }
 
     function getProjectName() public view returns (string memory) {
-        return INft(project).name();
+        return IToken(project).name();
     }
 
     function isTokenOwner() public view returns (bool){
-        if (dao.isERC721) {
-            if (INft(project).balanceOf(msg.sender) > 0) {
+        if (isERC721) {
+            if (IToken(project).balanceOf(msg.sender) > 0) {
                 return true;
             } else {
                 return false;
             }
         } else {
-            if (ICrypto(project).balanceOf(msg.sender) > 0){
+            if (IToken(project).balanceOf(msg.sender) > 0){
                 return true;
             } else {
                 return false;
@@ -133,7 +165,7 @@ contract CustomDao {
         }
     }
 
-    function propose(string memory _details, Executor _executor, uint _duration, address _execution) public payable {
+    function propose(string memory _details, Executor _executor, uint _duration, address _execution, VoteType _voteType) public payable {
         require(isTokenOwner(), "Not a member");
         Proposal memory newProposal;
         newProposal.details = _details;
@@ -141,7 +173,18 @@ contract CustomDao {
         newProposal.executor = _executor; //TODO how to pass from front end??
         newProposal.duration = _duration;
         newProposal.evidence = "None";
-        newProposal.execution = _execution; 
+        newProposal.execution = _execution;
+        newProposal.votes = 0;
+        newProposal.totalSupply = getTotalSupply();
+        newProposal.voteType = _voteType;
+    }
+
+    function getTotalSupply() public view returns (uint256) {
+        return IToken(project).totalSupply();
+    }
+
+    function getProposal(uint256 _id) public view returns (Proposal memory) {
+        return proposals[_id];
     }
 
     // string details; //ipfs json file
