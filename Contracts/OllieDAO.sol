@@ -16,12 +16,27 @@ contract OllieDAO {
 
     address[] daos;
 
+    struct Dao {
+        address dao;
+        address creator;
+        bool isERC721;
+        bool exist;
+    }
+
+    mapping (address => Dao) project; //1 Project, 1 DAO. We'll use project address to query for dao address
+
     function createDAO(address _project, bool _isERC721, address[] memory _admins) public payable{
-        require(msg.sender == getNftProjectOwner(_project), "Unauthorised");
+        require(msg.sender == getNftProjectOwner(_project), "Unauthorised, user is not the project owner.");
+        require(!project[_project].exist, "Project exists in DAO");
+
         CustomDao dao = new CustomDao(msg.sender, _project, _isERC721, _admins);
         
-        daos.push(address(dao));
+        project[_project].dao = address(dao);
+        project[_project].creator = msg.sender;
+        project[_project].isERC721 = _isERC721;
+        project[_project].exist = true;
 
+        daos.push(address(dao));
     }
 
     function getNftProjectOwner (address _nft) private view returns (address){
@@ -39,6 +54,15 @@ contract OllieDAO {
 }
 
 contract CustomDao {
+    struct Dao {
+        address creator;
+        address project;
+        bool isERC721;
+        address[] admins;
+        Proposal[] proposals;
+    }
+
+    Dao dao;
 
     address public creator;
     address public project;
@@ -69,14 +93,19 @@ contract CustomDao {
     }
 
     constructor(address _creator, address _project, bool _isERC721, address[] memory _admins){
-        creator = _creator;
-        project = _project;
-        isERC721 = _isERC721;
-        admins = _admins;
+        dao.creator = _creator;
+        dao.project = _project;
+        dao.isERC721 = _isERC721;
+        dao.admins = _admins;
+    }
+
+    // TODO Don't overload data return
+    function getDao() public view returns (Dao memory){
+        return dao;
     }
 
     function getAdmins() public view returns (address[] memory){
-        return admins;
+        return dao.admins;
     }
 
     function getProjectName() public view returns (string memory) {
