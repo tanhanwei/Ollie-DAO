@@ -21,6 +21,7 @@ contract CustomExecutionContract {
     struct ExecutionParams {
         bool[] BOOL;
         uint256[] UINT;
+        int256[] INT;
         string[] STRING;
         address[] ADDRESS;
     }
