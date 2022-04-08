@@ -22,7 +22,7 @@ contract CustomExecutionContract {
         bool[] BOOL;
         uint256[] UINT;
         string[] STRING;
-        address[] ADRESS;
+        address[] ADDRESS;
     }
 
     struct Evidence {
@@ -35,7 +35,8 @@ contract CustomExecutionContract {
         NUMBER,
         IMAGE,
         VIDEO,
-        MIXED
+        MIXED,
+        URL
     }
 
     function setExecutionName(string memory _name) public {
