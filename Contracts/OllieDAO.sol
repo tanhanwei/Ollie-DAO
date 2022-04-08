@@ -4,33 +4,37 @@ pragma solidity ^0.8.13;
 
 interface INft {
     function owner() external view returns (address);
-    function name() external view returns (string calldata);
-    function ownerOf(uint256 tokenId) external view returns (address);
+    //function name() external view returns (string);
+    //function createProfile(DataTypes.CreateProfileData calldata vars) external;
 }
 
 contract OllieDAO {
 
-    address owner;
+    struct Dao {
+        address createdBy;
+        Membership membership;
 
-    struct Project {
-        uint32 network;
-        //address contractAddress;
-        address owner;
+        uint256 funds; //start with 0
+
     }
 
-    //can be accessed by nft[SC_ADDRESS]
-    mapping(address => Project) private nft;
+    enum Membership {
+        erc721,
+        erc20
+    }
 
-    function getNftProjectOwner (address _nft) external view returns (address){
+    //can be accessed by dao[PROJECT_ADDRESS]
+    mapping(address => Dao) private dao;
+
+    function createDAO(address _project, Membership _membership) public payable{
+        require(msg.sender == getNftProjectOwner(_project), "Unauthorised");
+        dao[_project] = Dao(msg.sender, _membership, 0);
+
+    }
+
+    function getNftProjectOwner (address _nft) private view returns (address){
         return INft(_nft).owner();
     }
 
-    function getNftProjectName (address _nft) external view returns (string memory){
-        return INft(_nft).name();
-    }
-
-    function getNftTokenOwner(address _nft, uint256 _tokenId) external view returns (address){
-        return INft(_nft).ownerOf(_tokenId);
-    }
     
 }
