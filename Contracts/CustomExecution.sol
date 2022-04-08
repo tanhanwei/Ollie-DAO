@@ -77,5 +77,18 @@ contract CustomExecutionContract {
     function customExecution(address _dao, uint256 _executionId, ExecutionParams memory _executionParams) public virtual {
         //OVERRIDE WITH YOUR CUSTOM EXECUTION IN YOUR SMART CONTRACT
     }
+
+    function createEvidence(address _dao, uint256 _id, EvidenceType _type, string memory _uri) public virtual {
+        dao[_dao][_id].evidence.evidenceType = _type;
+        dao[_dao][_id].evidence.evidenceUri = _uri;
+    }
+
+    function completeExecution(address _dao, uint256 _id) public virtual {
+        dao[_dao][_id].isComplete = true;
+    }
+
+    function customUserInterface() public virtual view returns (string memory) {
+
+    }
   
 }
