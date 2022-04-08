@@ -62,7 +62,7 @@ contract ESFCreateFlow is CustomExecutionContract{
     // }
 
     /*Parameter LUT for Generic:
-        BOOL = []
+        BOOL = [false]
         UINT = [EVIDENCE_TYPE]
         INT = [FLOWRATE]
         STRING = [EVIDENCE_URL]
@@ -70,9 +70,12 @@ contract ESFCreateFlow is CustomExecutionContract{
     */
 
     function customExecution(address _dao, uint256 _id, ExecutionParams memory _executionParams) public override {
-        //CUSTOMIZE YOUR EXECUTION HERE
-
-        string memory evidence = "https://console.superfluid.finance/rinkeby/accounts/" + toAsciiString(_executionParams.ADDRESS[1]);
+        
+        //Generate URL to SuperFluid Console as evidence with receiver address
+        //maybe can create off-chain?
+        // string memory baseURL = "https://console.superfluid.finance/rinkeby/accounts/";
+        // string memory addressString = toAsciiString(_executionParams.ADDRESS[1]);
+        // string memory evidence = concatenate(baseURL, addressString);
 
         createFlow(ISuperfluidToken(_executionParams.ADDRESS[0]), _executionParams.ADDRESS[1], int96(_executionParams.INT[1]));
 
