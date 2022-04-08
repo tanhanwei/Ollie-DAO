@@ -16,6 +16,7 @@ interface IDao {
 contract OllieDAO {
 
     address[] daos;
+    address[] verifiedExecutionSc;
 
     struct Dao {
         address dao;
@@ -24,7 +25,7 @@ contract OllieDAO {
         bool exist;
     }
 
-    
+    // Map Wallet ID to get DAO address
     mapping (address => address[]) userDaos; //accessed by userDaos[WALLET_ADD][n] to get Dao address
 
     mapping (address => Dao) project; //1 Project, 1 DAO. We'll use token project address to query for dao address
@@ -83,7 +84,7 @@ contract CustomDao {
         Status status;
         Executor executor;
         uint duration;
-        string evidence;
+        string evidence; //TODO link evidence from custom execution contract
         address execution; //smart contract that handles execution
 
         uint256 votes;
@@ -92,16 +93,26 @@ contract CustomDao {
         uint256 totalSupply;
         VoteType voteType;
         
+        Challenge challenge; //TODO chain the challenge to proposal
+    }
+
+    struct Challenge {
         uint256 challengeCount;
         bool isChallenged;
         uint256 challengeTo;
         uint256 challengeFrom;
     }
 
-    
+    //Generic parameters for ANY execution smart contract (to be TRANSPOSED)
+    struct ExecutionParams {
+        bool[] BOOL;
+        uint256[] UINT;
+        string[] STRING;
+        address[] ADRESS;
+    }
 
     //Relative
-    //- Minno. of vote = total no. of admins (All admins must vote)
+    //- Min no. of vote = total no. of admins (All admins must vote)
     //- To win, needs 2/3 of total votes
     //Absolute
     //- Min no. of votes = totalSupply
@@ -165,12 +176,12 @@ contract CustomDao {
         }
     }
 
-    function propose(string memory _details, Executor _executor, uint _duration, address _execution, VoteType _voteType) public payable {
+    function propose(string memory _details, uint256 _executor, uint _duration, address _execution, VoteType _voteType) public payable {
         require(isTokenOwner(), "Not a member");
         Proposal memory newProposal;
-        newProposal.details = _details;
+        newProposal.details = _details; //uri of proposal details
         newProposal.status = Status.OPEN;
-        newProposal.executor = _executor; //TODO how to pass from front end??
+        newProposal.executor = Executor(_executor); //Pass INTEGER and type cast to Executor Type
         newProposal.duration = _duration;
         newProposal.evidence = "None";
         newProposal.execution = _execution;
