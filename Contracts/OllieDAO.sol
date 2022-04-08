@@ -5,7 +5,12 @@ pragma solidity ^0.8.13;
 interface INft {
     function owner() external view returns (address);
     function name() external view returns (string calldata);
+    function balanceOf(address) external view returns (uint256);
     //function createProfile(DataTypes.CreateProfileData calldata vars) external;
+}
+
+interface ICrypto {
+    function balanceOf(address) external view returns (uint256);
 }
 
 interface IDao {
@@ -68,7 +73,7 @@ contract CustomDao {
     address public project;
     bool isERC721; //if false, then it's ERC20
     address[] public admins;
-    Proposal[] public proposals;
+    Proposal[] public proposals; //calling as Proposal[ID]
 
     struct Proposal {
         string details; //ipfs json file
@@ -81,7 +86,7 @@ contract CustomDao {
 
     enum Executor {
         PROPOSER,
-        BOARD,
+        ADMIN,
         OPEN
     }
 
@@ -111,5 +116,39 @@ contract CustomDao {
     function getProjectName() public view returns (string memory) {
         return INft(project).name();
     }
+
+    function isTokenOwner() public view returns (bool){
+        if (dao.isERC721) {
+            if (INft(project).balanceOf(msg.sender) > 0) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            if (ICrypto(project).balanceOf(msg.sender) > 0){
+                return true;
+            } else {
+                return false;
+            }
+        }
+    }
+
+    function propose(string memory _details, Executor _executor, uint _duration, address _execution) public payable {
+        require(isTokenOwner(), "Not a member");
+        Proposal memory newProposal;
+        newProposal.details = _details;
+        newProposal.status = Status.OPEN;
+        newProposal.executor = _executor; //TODO how to pass from front end??
+        newProposal.duration = _duration;
+        newProposal.evidence = "None";
+        newProposal.execution = _execution; 
+    }
+
+    // string details; //ipfs json file
+    //     Status status;
+    //     Executor executor;
+    //     uint duration;
+    //     string evidence;
+    //     address execution; 
 
 }
