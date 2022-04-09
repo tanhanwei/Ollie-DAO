@@ -6,7 +6,7 @@ import "@fontsource/roboto/300.css";
 import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
-import { getDaoDetails } from "../Components/customDao";
+import { getAllProposals, getDaoDetails } from "../Components/customDao";
 
 const Dao = () => {
   const { daoAddress } = useParams();
@@ -16,11 +16,17 @@ const Dao = () => {
   useEffect(() => {
     async function fetchData() {
       const response = await getDaoDetails(daoAddress);
+      const response2 = await getAllProposals(daoAddress);
       setDao(response);
       console.log(response);
+      console.log(response2);
     }
     fetchData();
   }, []);
+
+  const loadDaoHandler = async () => {
+    await getDaoDetails("0x9950Ac34f476D8648aB6FC4431e72FeCbffeBC7C");
+  };
 
   return (
     <div>
@@ -36,6 +42,8 @@ const Dao = () => {
       ) : (
         <Typography variant="h2">Loading...</Typography>
       )}
+
+      <Button onClick={loadDaoHandler}>Load Dao Details</Button>
     </div>
   );
 };

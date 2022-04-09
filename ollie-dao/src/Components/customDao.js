@@ -12,9 +12,6 @@ export const getDaoDetails = async (daoSc) => {
   const provider = new ethers.providers.Web3Provider(window.ethereum);
   const customDao = new ethers.Contract(daoSc, customDaoAbi, provider);
   const response = await customDao.getDaoDetails();
-  console.log(response["admins"]["_hex"]);
-  console.log(Number(response["admins"]["_hex"]));
-  console.log(response);
 
   daoDetails.name = response["projectName"];
   daoDetails.funds = Number(response["funds"]["_hex"]).toString() + " ETH";
@@ -25,4 +22,12 @@ export const getDaoDetails = async (daoSc) => {
   console.log(daoDetails);
 
   return daoDetails;
+};
+
+export const getAllProposals = async (daoSc) => {
+  const provider = new ethers.providers.Web3Provider(window.ethereum);
+  const customDao = new ethers.Contract(daoSc, customDaoAbi, provider);
+  const response = await customDao.getAllProposals();
+
+  console.log(response);
 };
