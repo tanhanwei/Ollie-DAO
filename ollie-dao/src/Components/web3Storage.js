@@ -48,6 +48,20 @@ function createTestFileObjects() {
   const files = [new File([blob], "hello.json")];
   return files;
 }
+function createProposalJSON(title, details) {
+  // You can create File objects from a Blob of binary data
+  // see: https://developer.mozilla.org/en-US/docs/Web/API/Blob
+  // Here we're just storing a JSON object, but you can store images,
+  // audio, or whatever you want!
+  const obj = {
+    title: title,
+    details: details,
+  };
+  const blob = new Blob([JSON.stringify(obj)], { type: "application/json" });
+
+  const files = [new File([blob], "proposal.json")];
+  return files;
+}
 
 async function storeFiles(files) {
   const client = makeStorageClient();
@@ -59,6 +73,13 @@ async function storeFiles(files) {
 export async function uploadTestFile() {
   makeStorageClient();
   const files = createTestFileObjects();
+  const cid = await storeFiles(files);
+  return cid;
+}
+
+export async function uploadProposal(title, details) {
+  makeStorageClient();
+  const files = createProposalJSON(title, details);
   const cid = await storeFiles(files);
   return cid;
 }
@@ -91,8 +112,7 @@ export async function retrieveFiles(cid) {
   }
 }
 
-export async function getJSON(cidAndFileName) {
-  const url = "https://ipfs.io/ipfs/" + cidAndFileName;
+export async function getJSON(url) {
   const response = await fetch(url);
   const data = await response.json();
   return data;

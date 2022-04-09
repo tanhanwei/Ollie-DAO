@@ -30,21 +30,15 @@ const Dao = () => {
     fetchData();
   }, []);
 
-  const loadDaoHandler = async () => {
-    const response = await uploadTestFile();
-    console.log(response);
-  };
-
-  const retrieveFileHandler = async () => {
-    const response = await getJSON(
-      "bafybeihe7me4pgelcnzonwz6xyg4mtf75yyi6p6ssuqafwtt46cdlze77e/hello.json"
-    );
-    console.log(response.title);
-  };
-
   const createProposalHandler = async () => {
     const response = await createProposal(
-      "0x2c6A9A4A096Ae6a265B70FF31Fb219B78bCBCBF4"
+      "0x2c6A9A4A096Ae6a265B70FF31Fb219B78bCBCBF4",
+      "Send me money",
+      "Once upon a tile I need those money",
+      "0",
+      200,
+      "0x44fCE80b50Bf5414c24E56bCF5298d52dC6ed5DE",
+      0
     );
     console.log(response);
   };
@@ -64,7 +58,6 @@ const Dao = () => {
         <Typography variant="h2">Loading...</Typography>
       )}
 
-      <Button onClick={retrieveFileHandler}>Retrieve File</Button>
       <Button onClick={createProposalHandler}>Create Proposal</Button>
     </div>
   );
