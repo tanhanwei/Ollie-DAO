@@ -3,6 +3,7 @@
 pragma solidity ^0.8.13;
 
 import "https://github.com/tanhanwei/Ollie-DAO/blob/main/Contracts/CustomExecution.sol";
+import "https://github.com/tanhanwei/Ollie-DAO/blob/main/Contracts/DataTypes.sol";
 
 contract EGeneric is CustomExecutionContract {
 
@@ -31,7 +32,7 @@ contract EGeneric is CustomExecutionContract {
             ADDRESS = []
     */
 
-    function customExecution(address _dao, uint256 _id, ExecutionParams memory _executionParams) public override {
+    function customExecution(address _dao, uint256 _id, DataTypes.ExecutionParams memory _executionParams) public override {
         //CUSTOMIZE YOUR EXECUTION HERE
         createEvidence(_dao, _id, EvidenceType(_executionParams.UINT[0]), _executionParams.STRING[0]);
         completeExecution(_dao, _id);

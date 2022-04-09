@@ -3,6 +3,7 @@
 pragma solidity ^0.8.13;
 
 import "https://github.com/tanhanwei/Ollie-DAO/blob/main/Contracts/CustomExecution.sol";
+import "https://github.com/tanhanwei/Ollie-DAO/blob/main/Contracts/DataTypes.sol";
 
 //This is the template to create custom on-chain execution codes for Ollie DAO
 contract EExecutionName is CustomExecutionContract {
@@ -32,7 +33,7 @@ contract EExecutionName is CustomExecutionContract {
             STRING = []
             ADDRESS = []
     */
-    function customExecution(address _dao, uint256 _id, ExecutionParams memory _executionParams) public override {
+    function customExecution(address _dao, uint256 _id, DataTypes.ExecutionParams memory _executionParams) public override {
         //CUSTOMIZE YOUR EXECUTION HERE
 
         //Create evidence based on Parameter LUT received
