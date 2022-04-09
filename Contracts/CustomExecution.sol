@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: MIT
 
 pragma solidity ^0.8.13;
+import "https://github.com/tanhanwei/Ollie-DAO/blob/main/Contracts/DataTypes.sol";
 
 contract CustomExecutionContract {
 
@@ -16,15 +17,7 @@ contract CustomExecutionContract {
         Evidence evidence;
     }
 
-    //Lookup Table for Execution Parameters
-    //Every custom execution will have its own LUT
-    struct ExecutionParams {
-        bool[] BOOL;
-        uint256[] UINT;
-        int256[] INT;
-        string[] STRING;
-        address[] ADDRESS;
-    }
+
 
     struct Evidence {
         string evidenceUri; //can also be pure string
@@ -48,7 +41,7 @@ contract CustomExecutionContract {
         return executionName;
     }
 
-    function execute (address _dao, ExecutionParams memory _executionParams, bool _isNewExecution, uint256 _id) public {
+    function execute (address _dao, DataTypes.ExecutionParams memory _executionParams, bool _isNewExecution, uint256 _id) public {
         //if it's a new execution assign a new Execution ID
         if (_isNewExecution) {
             _id = newExecution(_dao);
@@ -76,7 +69,7 @@ contract CustomExecutionContract {
     }
 
     // Custom execution is private in case of malicious use.
-    function customExecution(address _dao, uint256 _executionId, ExecutionParams memory _executionParams) public virtual {
+    function customExecution(address _dao, uint256 _executionId, DataTypes.ExecutionParams memory _executionParams) public virtual {
         //OVERRIDE WITH YOUR CUSTOM EXECUTION IN YOUR SMART CONTRACT
     }
 
