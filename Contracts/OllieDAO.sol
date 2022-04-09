@@ -22,7 +22,7 @@ interface IExecution {
 contract OllieDAO {
 
     address[] daos;
-    address[] verifiedExecutionSc;
+    address[] verifiedExecutionContract;
 
     struct Dao {
         address dao;
@@ -64,6 +64,15 @@ contract OllieDAO {
 
     function addUserDao(address _dao) public {
         userDaos[msg.sender].push(_dao);
+    }
+
+    //TODO: Permission to Ollie DAO admins only
+    function addVerifiedExecutionContract(address _executionContract) public {
+        verifiedExecutionContract.push(_executionContract);
+    }
+
+    function getAllVerifiedExecutionContract() public view returns (address[] memory) {
+        return verifiedExecutionContract;
     }
 
 }

@@ -16,6 +16,19 @@ export const ollieDaoABI = [
     inputs: [
       {
         internalType: "address",
+        name: "_executionContract",
+        type: "address",
+      },
+    ],
+    name: "addVerifiedExecutionContract",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
         name: "_project",
         type: "address",
       },
@@ -38,6 +51,19 @@ export const ollieDaoABI = [
   {
     inputs: [],
     name: "getAllDaos",
+    outputs: [
+      {
+        internalType: "address[]",
+        name: "",
+        type: "address[]",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "getAllVerifiedExecutionContract",
     outputs: [
       {
         internalType: "address[]",
