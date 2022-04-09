@@ -7,6 +7,12 @@ import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
 import { getAllProposals, getDaoDetails } from "../Components/customDao";
+import {
+  getJSON,
+  retrieveFiles,
+  uploadTestFile,
+} from "../Components/web3Storage";
+import { createProposal } from "../Components/proposal";
 
 const Dao = () => {
   const { daoAddress } = useParams();
@@ -25,7 +31,22 @@ const Dao = () => {
   }, []);
 
   const loadDaoHandler = async () => {
-    await getDaoDetails("0x9950Ac34f476D8648aB6FC4431e72FeCbffeBC7C");
+    const response = await uploadTestFile();
+    console.log(response);
+  };
+
+  const retrieveFileHandler = async () => {
+    const response = await getJSON(
+      "bafybeihe7me4pgelcnzonwz6xyg4mtf75yyi6p6ssuqafwtt46cdlze77e/hello.json"
+    );
+    console.log(response.title);
+  };
+
+  const createProposalHandler = async () => {
+    const response = await createProposal(
+      "0x2c6A9A4A096Ae6a265B70FF31Fb219B78bCBCBF4"
+    );
+    console.log(response);
   };
 
   return (
@@ -43,7 +64,8 @@ const Dao = () => {
         <Typography variant="h2">Loading...</Typography>
       )}
 
-      <Button onClick={loadDaoHandler}>Load Dao Details</Button>
+      <Button onClick={retrieveFileHandler}>Retrieve File</Button>
+      <Button onClick={createProposalHandler}>Create Proposal</Button>
     </div>
   );
 };

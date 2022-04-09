@@ -31,10 +31,35 @@ function makeFileObjects() {
   return files;
 }
 
+function createTestFileObjects() {
+  // You can create File objects from a Blob of binary data
+  // see: https://developer.mozilla.org/en-US/docs/Web/API/Blob
+  // Here we're just storing a JSON object, but you can store images,
+  // audio, or whatever you want!
+  const obj = {
+    title: "Stream 0.001 ETH per seconds for hiring a Discord Mod.",
+    details: `Our communities are growing super fast,
+      and we had followers from all over the world.
+      I'd like to hire Mr. C as our new Mod. He is a seasoned Discord mod
+      who has successfully enagaged more than 100K users for 6 hours daily.`,
+  };
+  const blob = new Blob([JSON.stringify(obj)], { type: "application/json" });
+
+  const files = [new File([blob], "hello.json")];
+  return files;
+}
+
 async function storeFiles(files) {
   const client = makeStorageClient();
   const cid = await client.put(files);
   console.log("stored files with cid:", cid);
+  return cid;
+}
+
+export async function uploadTestFile() {
+  makeStorageClient();
+  const files = createTestFileObjects();
+  const cid = await storeFiles(files);
   return cid;
 }
 
@@ -49,7 +74,7 @@ async function retrieve(cid) {
   // request succeeded! do something with the response object here...
 }
 
-async function retrieveFiles(cid) {
+export async function retrieveFiles(cid) {
   const client = makeStorageClient();
   const res = await client.get(cid);
   console.log(`Got a response! [${res.status}] ${res.statusText}`);
@@ -59,7 +84,16 @@ async function retrieveFiles(cid) {
 
   // unpack File objects from the response
   const files = await res.files();
+  console.log(files);
   for (const file of files) {
-    console.log(`${file.cid} -- ${file.name} -- ${file.size}`);
+    //console.log(`${file.cid} -- ${file.name} -- ${file.size}`);
+    //console.log(file);
   }
+}
+
+export async function getJSON(cidAndFileName) {
+  const url = "https://ipfs.io/ipfs/" + cidAndFileName;
+  const response = await fetch(url);
+  const data = await response.json();
+  return data;
 }
