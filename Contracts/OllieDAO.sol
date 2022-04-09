@@ -2,6 +2,8 @@
 
 pragma solidity ^0.8.13;
 
+import "https://github.com/tanhanwei/Ollie-DAO/blob/main/Contracts/DataTypes.sol";
+
 interface IToken {
     function owner() external view returns (address);
     function name() external view returns (string calldata);
@@ -11,6 +13,10 @@ interface IToken {
 
 interface IDao {
     function getAdmins() external view returns (address[] calldata);
+}
+
+interface IExecution {
+    function execute (address _dao, DataTypes.ExecutionParams memory _executionParams, bool _isNewExecution, uint256 _id) external;
 }
 
 contract OllieDAO {
@@ -228,5 +234,9 @@ contract CustomDao {
     //     uint duration;
     //     string evidence;
     //     address execution; 
+
+    function executeProposal(address _execution, DataTypes.ExecutionParams memory _executionParams, bool _isNewExecution, uint256 _id) public {
+        IExecution(_execution).execute(address(this), _executionParams, _isNewExecution, _id);
+    }
 
 }
