@@ -35,15 +35,6 @@ export default function App() {
       <h2>Wallet: {walletAddress}</h2>
       <button onClick={readContractHandler}>Get all DAOs</button>
       <h1>Ollie DAO</h1>
-      <nav
-        style={{
-          borderBottom: "solid 1px",
-          paddingBottom: "1rem",
-        }}
-      >
-        <Link to="/explore">Explore</Link> | <Link to="/create">Create</Link>
-      </nav>
-      <Outlet />
     </div>
   );
 }

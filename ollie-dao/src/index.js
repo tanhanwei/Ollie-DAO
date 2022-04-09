@@ -5,8 +5,9 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Create from "./routes/create";
-import Dao from "./routes/dao";
 import Explore from "./routes/explore";
+import Dao from "./routes/dao";
+import Proposal from "./routes/proposal";
 
 // ReactDOM.render(
 //   <React.StrictMode>
@@ -20,28 +21,11 @@ const root = ReactDOM.createRoot(container);
 root.render(
   <BrowserRouter>
     <Routes>
-      <Route path="/" element={<App />}>
-        <Route path="create" element={<Create />} />
-        <Route path="explore" element={<Explore />}>
-          <Route
-            index
-            element={
-              <main style={{ padding: "1rem" }}>
-                <p>Select an DAO</p>
-              </main>
-            }
-          />
-          <Route path=":daoId" element={<Dao />} />
-        </Route>
-        <Route
-          path="*"
-          element={
-            <main style={{ padding: "1rem" }}>
-              <p>There's nothing here!</p>
-            </main>
-          }
-        />
-      </Route>
+      <Route path="/" element={<App />}></Route>
+      <Route path="/create" element={<Create />}></Route>
+      <Route path="/explore" element={<Explore />}></Route>
+      <Route path="/dao/:daoAddress" element={<Dao />}></Route>
+      <Route path="/dao/:daoAddress/:proposalId" element={<Proposal />}></Route>
     </Routes>
   </BrowserRouter>
 );

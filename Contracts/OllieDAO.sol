@@ -198,6 +198,28 @@ contract CustomDao {
         return proposals[_id];
     }
 
+    struct DaoDetails {
+        string projectName;
+        uint256 funds;
+        uint256 admins;
+        uint256 proposals;
+    }
+
+    function getDaoDetails() public view returns (DaoDetails memory) {
+        DaoDetails memory daoDetails;
+
+        daoDetails.projectName = getProjectName();
+        daoDetails.funds = address(this).balance;
+        daoDetails.admins = admins.length;
+        daoDetails.proposals =  proposals.length;
+
+        return daoDetails;
+
+    }
+
+    function getAllProposals() public view returns (Proposal[] memory) {
+        return proposals;
+    }
     // string details; //ipfs json file
     //     Status status;
     //     Executor executor;
