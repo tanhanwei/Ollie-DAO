@@ -17,13 +17,10 @@ const Dao = () => {
     async function fetchData() {
       const response = await getDaoDetails(daoAddress);
       setDao(response);
+      console.log(response);
     }
     fetchData();
   }, []);
-
-  const loadDaoHandler = async () => {
-    await getDaoDetails("0x9950Ac34f476D8648aB6FC4431e72FeCbffeBC7C");
-  };
 
   return (
     <div>
@@ -39,8 +36,6 @@ const Dao = () => {
       ) : (
         <Typography variant="h2">Loading...</Typography>
       )}
-
-      <Button onClick={loadDaoHandler}>Load Dao Details</Button>
     </div>
   );
 };

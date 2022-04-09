@@ -20,7 +20,7 @@ export const getDaoDetails = async (daoSc) => {
   daoDetails.funds = Number(response["funds"]["_hex"]).toString() + " ETH";
   daoDetails.admins = Number(response["admins"]["_hex"]).toString() + " Owners";
   daoDetails.proposals =
-    Number(response["funds"]["_hex"]).toString() + " Proposals";
+    Number(response["proposals"]["_hex"]).toString() + " Proposals";
 
   console.log(daoDetails);
 

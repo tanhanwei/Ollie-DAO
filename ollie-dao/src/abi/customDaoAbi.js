@@ -2,6 +2,39 @@ export const customDaoAbi = [
   {
     inputs: [
       {
+        internalType: "string",
+        name: "_details",
+        type: "string",
+      },
+      {
+        internalType: "uint256",
+        name: "_executor",
+        type: "uint256",
+      },
+      {
+        internalType: "uint256",
+        name: "_duration",
+        type: "uint256",
+      },
+      {
+        internalType: "address",
+        name: "_execution",
+        type: "address",
+      },
+      {
+        internalType: "enum CustomDao.VoteType",
+        name: "_voteType",
+        type: "uint8",
+      },
+    ],
+    name: "propose",
+    outputs: [],
+    stateMutability: "payable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
         internalType: "address",
         name: "_creator",
         type: "address",
@@ -441,39 +474,6 @@ export const customDaoAbi = [
       },
     ],
     stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "string",
-        name: "_details",
-        type: "string",
-      },
-      {
-        internalType: "uint256",
-        name: "_executor",
-        type: "uint256",
-      },
-      {
-        internalType: "uint256",
-        name: "_duration",
-        type: "uint256",
-      },
-      {
-        internalType: "address",
-        name: "_execution",
-        type: "address",
-      },
-      {
-        internalType: "enum CustomDao.VoteType",
-        name: "_voteType",
-        type: "uint8",
-      },
-    ],
-    name: "propose",
-    outputs: [],
-    stateMutability: "payable",
     type: "function",
   },
 ];
