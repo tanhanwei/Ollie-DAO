@@ -86,5 +86,25 @@ contract ESFCreateFlow is CustomExecutionContract{
         completeExecution(_dao, _id);
     }
 
+    struct ReverseExecutionParams {
+            string[] BOOL;
+            string[] INT;
+            string[] UINT;
+            string[] STRING;
+            string[] ADDRESS;
+    }
+
+    function deLUTExecutionParams() public pure returns (ReverseExecutionParams memory){
+        ReverseExecutionParams memory executionParams;
+
+        executionParams.UINT[0] = "Evidence Type";
+        executionParams.INT[0] = "Flow rate";
+        executionParams.STRING[0] = "Evidence Uri";
+        executionParams.ADDRESS[0] = "Token Address";
+        executionParams.ADDRESS[1] = "Receiver";
+        
+        return executionParams;
+    }
+
 }
 

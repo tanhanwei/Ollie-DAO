@@ -37,4 +37,20 @@ contract EGeneric is CustomExecutionContract {
         createEvidence(_dao, _id, EvidenceType(_executionParams.UINT[0]), _executionParams.STRING[0]);
         completeExecution(_dao, _id);
     }
+
+    struct ReverseExecutionParams {
+            string[] BOOL;
+            string[] INT;
+            string[] UINT;
+            string[] STRING;
+            string[] ADDRESS;
+    }
+
+    function deLUTExecutionParams() public pure returns (ReverseExecutionParams memory){
+        ReverseExecutionParams memory executionParams;
+
+        executionParams.UINT[0] = "Evidence Type";
+        executionParams.STRING[0] = "Evidence Uri";
+        return executionParams;
+    }
 }

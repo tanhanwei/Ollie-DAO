@@ -41,6 +41,22 @@ contract EExecutionName is CustomExecutionContract {
         completeExecution(_dao, _id);
     }
 
+    struct ReverseExecutionParams {
+            string[] BOOL;
+            string[] INT;
+            string[] UINT;
+            string[] STRING;
+            string[] ADDRESS;
+    }
+
+    function deLUTExecutionParams() public pure returns (ReverseExecutionParams memory){
+        ReverseExecutionParams memory executionParams;
+
+        executionParams.UINT[0] = "Some Parameters";
+        executionParams.STRING[0] = "Sone strings";
+        return executionParams;
+    }
+
     //ADD YOUR CUSTOM CODE BELOW
     
 }
