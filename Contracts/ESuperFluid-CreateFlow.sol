@@ -94,16 +94,49 @@ contract ESFCreateFlow is CustomExecutionContract{
             string[] ADDRESS;
     }
 
-    function deLUTExecutionParams() public pure returns (ReverseExecutionParams memory){
-        ReverseExecutionParams memory executionParams;
+    // function deLUTExecutionParams() public view returns (ReverseExecutionParams calldata){
+    //     ReverseExecutionParams calldata executionParams;
 
-        executionParams.UINT[0] = "Evidence Type";
-        executionParams.INT[0] = "Flow rate";
-        executionParams.STRING[0] = "Evidence Uri";
-        executionParams.ADDRESS[0] = "Token Address";
-        executionParams.ADDRESS[1] = "Receiver";
+    //     executionParams.UINT.push("Evidence Type");
+    //     // executionParams.INT.push("Flow rate");
+    //     // executionParams.STRING.push("Evidence Uri");
+    //     // executionParams.ADDRESS.push("Token Address");
+    //     // //executionParams.ADDRESS[1] = "Receiver";
+    //     // //executionParams.BOOL[0] = "Nil";
         
-        return executionParams;
+    //     return executionParams;
+    // }
+
+    //RESUME HERE WHY ARRAY WONT WORK??
+    function deBool () public pure returns (string[] memory) {
+        string[] memory BOOL = new string[](1);
+        BOOL[0] = "Nil";
+        return BOOL;
+    }
+
+    function deInt () public pure returns (string[] memory) {
+        string[] memory DINT = new string[](1);
+        DINT[0] = "Flow Rate";
+        return DINT;
+    }
+
+    function deUint () public pure returns (string[] memory) {
+        string[] memory DUINT = new string[](1);
+        DUINT[0] = "Evidence Type";
+        return DUINT;
+    }
+
+    function deString () public pure returns (string[] memory) {
+        string[] memory DSTRING = new string[](1);
+        DSTRING[0] = "Evidence URI";
+        return DSTRING;
+    }
+
+    function deAddress () public pure returns (string[] memory) {
+        string[] memory DADDRESS = new string[](2);
+        DADDRESS[0] = "Super Token Address";
+        DADDRESS[1] = "Receiver";
+        return DADDRESS;
     }
 
 }
