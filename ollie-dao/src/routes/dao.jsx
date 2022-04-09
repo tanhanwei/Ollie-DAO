@@ -24,8 +24,8 @@ const Dao = () => {
       const response = await getDaoDetails(daoAddress);
       const response2 = await getAllProposals(daoAddress);
       setDao(response);
-      console.log(response);
-      console.log(response2);
+      //console.log(response);
+      //console.log(response2);
     }
     fetchData();
   }, []);

@@ -1,5 +1,6 @@
 import { ethers } from "ethers";
 import { customDaoAbi } from "../abi/customDaoAbi";
+import { getJSON } from "./web3Storage";
 
 var proposals = Array();
 
@@ -51,7 +52,10 @@ export const getAllProposals = async (daoSc) => {
 
       //Challenge: challenge //TODO chain the challenge to proposal
     };
-    proposal.details = response[i]["details"];
+    let data = await getJSON(response[i]["details"]);
+
+    proposal.title = data.title;
+    proposal.details = data.details;
     proposal.status = response[i]["status"];
     proposal.executor = response[i]["executor"];
     proposal.duration = Number(response[i]["duration"]["_hex"])
@@ -68,7 +72,7 @@ export const getAllProposals = async (daoSc) => {
       ? Number(response[i]["_hex"])
       : 0;
     proposal.voteType = response[i]["voteType"];
-    console.log(proposal);
+    //console.log(proposal);
 
     proposals.push(proposal);
     // console.log("push");
@@ -77,4 +81,5 @@ export const getAllProposals = async (daoSc) => {
 
   console.log(proposals);
   //console.log(response[3]["details"]);
+  return proposals;
 };

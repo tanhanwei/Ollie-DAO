@@ -35,6 +35,7 @@ export default function App() {
       <h2>Wallet: {walletAddress}</h2>
       <button onClick={readContractHandler}>Get all DAOs</button>
       <h1>Ollie DAO</h1>
+      
     </div>
   );
 }

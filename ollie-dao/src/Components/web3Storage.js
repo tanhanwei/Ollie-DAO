@@ -113,7 +113,11 @@ export async function retrieveFiles(cid) {
 }
 
 export async function getJSON(url) {
-  const response = await fetch(url);
-  const data = await response.json();
-  return data;
+  try {
+    const response = await fetch(url);
+    const data = await response.json();
+    return data;
+  } catch {
+    return { title: "Error", details: "Error" };
+  }
 }
