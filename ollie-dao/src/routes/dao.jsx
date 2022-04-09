@@ -6,12 +6,9 @@ import "@fontsource/roboto/300.css";
 import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
-import { getAllProposals, getDaoDetails } from "../Components/customDao";
-import {
-  getJSON,
-  retrieveFiles,
-  uploadTestFile,
-} from "../Components/web3Storage";
+import { getDaoDetails } from "../Components/customDao";
+import { getAllProposals } from "../Components/proposal";
+
 import { createProposal } from "../Components/proposal";
 
 const Dao = () => {
