@@ -10,17 +10,22 @@ import { getDaoDetails } from "../Components/customDao";
 import { getAllProposals } from "../Components/proposal";
 
 import { createProposal } from "../Components/proposal";
+import { Box } from "@mui/system";
+import ProposalCard from "../Components/Elements/ProposalCard";
+import { getExecutionParams } from "../Components/execute";
 
 const Dao = () => {
   const { daoAddress } = useParams();
 
   const [dao, setDao] = useState();
+  const [proposals, setProposals] = useState([]);
 
   useEffect(() => {
     async function fetchData() {
       const response = await getDaoDetails(daoAddress);
       const response2 = await getAllProposals(daoAddress);
       setDao(response);
+      setProposals(response2);
       //console.log(response);
       //console.log(response2);
     }
@@ -40,6 +45,13 @@ const Dao = () => {
     console.log(response);
   };
 
+  const getExeParams = async () => {
+    const response = await getExecutionParams(
+      "0x0b49BC3184aBcfAA6b42ce80413e420769cf9b5a"
+    );
+    console.log(response);
+  };
+
   return (
     <div>
       {dao ? (
@@ -50,12 +62,18 @@ const Dao = () => {
           <Typography variant="h2">{dao.funds}</Typography>
           <Typography variant="h2">{dao.admins}</Typography>
           <Typography variant="h2">{dao.proposals}</Typography>{" "}
+          <Box bgcolor={"grey"}>
+            {proposals.map((proposal) => (
+              <ProposalCard proposal={proposal} daoContract={daoAddress} />
+            ))}
+          </Box>
         </div>
       ) : (
         <Typography variant="h2">Loading...</Typography>
       )}
 
       <Button onClick={createProposalHandler}>Create Proposal</Button>
+      <Button onClick={getExeParams}>Get Exe Params</Button>
     </div>
   );
 };

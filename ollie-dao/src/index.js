@@ -8,6 +8,7 @@ import Create from "./routes/create";
 import Explore from "./routes/explore";
 import Dao from "./routes/dao";
 import Proposal from "./routes/proposal";
+import Execute from "./routes/execute";
 
 // ReactDOM.render(
 //   <React.StrictMode>
@@ -26,6 +27,10 @@ root.render(
       <Route path="/explore" element={<Explore />}></Route>
       <Route path="/dao/:daoAddress" element={<Dao />}></Route>
       <Route path="/dao/:daoAddress/:proposalId" element={<Proposal />}></Route>
+      <Route
+        path="/dao/:daoAddress/:proposalId/execute"
+        element={<Execute />}
+      ></Route>
     </Routes>
   </BrowserRouter>
 );
