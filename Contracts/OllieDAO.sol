@@ -188,6 +188,8 @@ contract CustomDao {
         newProposal.votes = 0;
         newProposal.totalSupply = getTotalSupply();
         newProposal.voteType = _voteType;
+
+        proposals.push(newProposal);
     }
 
     function getTotalSupply() public view returns (uint256) {
