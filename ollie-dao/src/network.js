@@ -1,0 +1,1 @@
+export const OllieDAOSc = "0x9E2FCD332B8e4ef66e5147E214C46c525a78085B";
