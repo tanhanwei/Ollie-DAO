@@ -57,4 +57,36 @@ contract EGeneric is CustomExecutionContract {
         executionParams.STRING[0] = "Evidence Uri";
         return executionParams;
     }
+
+    //Use these to generate dynamic UI
+    function deBool () public pure returns (string[] memory) {
+        string[] memory BOOL = new string[](1);
+        BOOL[0] = "Nil";
+        return BOOL;
+    }
+
+    function deInt () public pure returns (string[] memory) {
+        string[] memory DINT = new string[](1);
+        DINT[0] = "Nil";
+        return DINT;
+    }
+
+    function deUint () public pure returns (string[] memory) {
+        string[] memory DUINT = new string[](1);
+        DUINT[0] = "Evidence Type";
+        return DUINT;
+    }
+
+    function deString () public pure returns (string[] memory) {
+        string[] memory DSTRING = new string[](1);
+        DSTRING[0] = "Evidence URI";
+        return DSTRING;
+    }
+
+    function deAddress () public pure returns (string[] memory) {
+        string[] memory DADDRESS = new string[](2);
+        DADDRESS[0] = "Nil";
+        return DADDRESS;
+    }
+
 }
