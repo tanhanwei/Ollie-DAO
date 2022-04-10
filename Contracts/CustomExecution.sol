@@ -41,7 +41,8 @@ contract CustomExecutionContract {
         return executionName;
     }
 
-    function execute (address _dao, bool[] memory _BOOL, 
+    function execute (address _dao,
+        bool[] memory _BOOL, 
         uint256[] memory _UINT, 
         int256[] memory _INT, 
         string[] memory _STRING, 

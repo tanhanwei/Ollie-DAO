@@ -71,43 +71,27 @@ contract ESFCreateFlow is CustomExecutionContract{
         ADDRESS = [TOKEN_ADDRESS, RECEIVER]
     */
 
-    function customExecution(address _dao, uint256 _id, DataTypes.ExecutionParams memory _executionParams) public override {
+    function customExecution(address _dao, uint256 _executionId,
+        bool[] memory _BOOL, 
+        uint256[] memory _UINT, 
+        int256[] memory _INT, 
+        string[] memory _STRING, 
+        address[] memory _ADDRESS) public {
         
         //Generate URL to SuperFluid Console as evidence with receiver address
         //maybe can create off-chain?
         // string memory baseURL = "https://console.superfluid.finance/rinkeby/accounts/";
-        // string memory addressString = toAsciiString(_executionParams.ADDRESS[1]);
+        // string memory addressString = toAsciiString(_ADDRESS[1]);
         // string memory evidence = concatenate(baseURL, addressString);
 
-        createFlow(ISuperfluidToken(_executionParams.ADDRESS[0]), _executionParams.ADDRESS[1], int96(_executionParams.INT[1]));
+        createFlow(ISuperfluidToken(_ADDRESS[0]), _ADDRESS[1], int96(_INT[1]));
 
         //createEvidence(DAO_ADDRESS, EVIDENCE_TYPE, EVIDENCE)
-        createEvidence(_dao, _id, EvidenceType(_executionParams.UINT[0]), _executionParams.STRING[0]);
-        completeExecution(_dao, _id);
+        createEvidence(_dao, _executionId, EvidenceType(_UINT[0]), _STRING[0]);
+        completeExecution(_dao, _executionId);
     }
 
-    struct ReverseExecutionParams {
-            string[] BOOL;
-            string[] INT;
-            string[] UINT;
-            string[] STRING;
-            string[] ADDRESS;
-    }
 
-    // function deLUTExecutionParams() public view returns (ReverseExecutionParams calldata){
-    //     ReverseExecutionParams calldata executionParams;
-
-    //     executionParams.UINT.push("Evidence Type");
-    //     // executionParams.INT.push("Flow rate");
-    //     // executionParams.STRING.push("Evidence Uri");
-    //     // executionParams.ADDRESS.push("Token Address");
-    //     // //executionParams.ADDRESS[1] = "Receiver";
-    //     // //executionParams.BOOL[0] = "Nil";
-        
-    //     return executionParams;
-    // }
-
-    //RESUME HERE WHY ARRAY WONT WORK??
     function deBool () public pure returns (string[] memory) {
         string[] memory BOOL = new string[](1);
         BOOL[0] = "Nil";
