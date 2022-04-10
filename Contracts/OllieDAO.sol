@@ -16,7 +16,7 @@ interface IDao {
 }
 
 interface IExecution {
-    function execute (address _dao, DataTypes.ExecutionParams memory _executionParams, bool _isNewExecution, uint256 _id) external;
+    function execute (address _dao, bool[] memory _BOOL, uint256[] memory _UINT, int256[] memory _INT, string[] memory _STRING, address[] memory _ADDRESS, bool _isNewExecution, uint256 _id) external;
 }
 
 contract OllieDAO {
@@ -244,8 +244,18 @@ contract CustomDao {
     //     string evidence;
     //     address execution; 
 
-    function executeProposal(address _execution, DataTypes.ExecutionParams memory _executionParams, bool _isNewExecution, uint256 _id) public {
-        IExecution(_execution).execute(address(this), _executionParams, _isNewExecution, _id);
+    function executeProposal(
+        address _execution, 
+        bool[] memory _BOOL, 
+        uint256[] memory _UINT, 
+        int256[] memory _INT, 
+        string[] memory _STRING, 
+        address[] memory _ADDRESS, 
+        bool _isNewExecution, 
+        uint256 _id) 
+        
+        public {
+        IExecution(_execution).execute(address(this), _BOOL, _UINT, _INT, _STRING, _ADDRESS, _isNewExecution, _id);
     }
 
 }
