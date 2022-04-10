@@ -52,28 +52,61 @@ const Dao = () => {
   };
 
   return (
-    <div>
+    <Box sx={{ p: 8 }}>
       {dao ? (
         <div>
           {" "}
-          <Typography variant="h1">{dao.name}</Typography>
-          <Typography variant="h6">{daoAddress}</Typography>
-          <Typography variant="h2">{dao.funds}</Typography>
-          <Typography variant="h2">{dao.admins}</Typography>
-          <Typography variant="h2">{dao.proposals}</Typography>{" "}
+          <Box display="flex" justifyContent="center" alignItems="center">
+            <Box>
+              <Box display="flex" justifyContent="center" alignItems="center">
+                <Typography variant="h1">{dao.name}</Typography>
+              </Box>
+              <Box display="flex" justifyContent="center" alignItems="center">
+                <Typography sx={{ color: "grey" }} variant="body1">
+                  {daoAddress}
+                </Typography>
+              </Box>
+              <Box display="flex" justifyContent="center" alignItems="center">
+                <Typography sx={{ p: 2 }} variant="h5">
+                  {dao.funds}
+                </Typography>
+                <Typography sx={{ p: 2 }} variant="h5">
+                  {dao.admins}
+                </Typography>
+                <Typography sx={{ p: 2 }} variant="h5">
+                  {dao.proposals}
+                </Typography>{" "}
+              </Box>
+              <Box display="flex" justifyContent="center" alignItems="center">
+                <Button
+                  sx={{ p: 2, width: 300, margin: 4 }}
+                  variant="outlined"
+                  onClick={createProposalHandler}
+                >
+                  Create Proposal
+                </Button>
+              </Box>
+            </Box>
+          </Box>
           <Box bgcolor={"grey"}>
-            {proposals.map((proposal) => (
-              <ProposalCard proposal={proposal} daoContract={daoAddress} />
+            {proposals.map((proposal, index) => (
+              <ProposalCard
+                key={index}
+                id={index}
+                proposal={proposal}
+                daoContract={daoAddress}
+              />
             ))}
           </Box>
         </div>
       ) : (
-        <Typography variant="h2">Loading...</Typography>
+        <Box display="flex" justifyContent="center" alignItems="center">
+          <Typography variant="h2">Loading...</Typography>
+        </Box>
       )}
 
-      <Button onClick={createProposalHandler}>Create Proposal</Button>
       <Button onClick={getExeParams}>Get Exe Params</Button>
-    </div>
+    </Box>
   );
 };
 

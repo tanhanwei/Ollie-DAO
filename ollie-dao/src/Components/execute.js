@@ -66,3 +66,15 @@ export const getExecutionParams = async (executionSc) => {
 
   return executionParams;
 };
+
+export const getExecutionName = async (executionSc) => {
+  const provider = new ethers.providers.Web3Provider(window.ethereum);
+  const executionContract = new ethers.Contract(
+    executionSc,
+    ESFCreateFlowAbi,
+    provider
+  );
+  const executionName = await executionContract.getExecutionName();
+
+  return executionName;
+};

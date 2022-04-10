@@ -1,4 +1,4 @@
-import { TextField } from "@mui/material";
+import { Box, TextField } from "@mui/material";
 import React from "react";
 
 const ExecutionField = (props) => {
@@ -6,12 +6,14 @@ const ExecutionField = (props) => {
     <div>
       {" "}
       {props.label != "Nil" ? (
-        <TextField
-          id="outlined-basic"
-          label={props.label}
-          variant="outlined"
-          onKeyUp={props.inputHandler}
-        />
+        <Box sx={{ p: 1 }}>
+          <TextField
+            id="outlined-basic"
+            label={props.label}
+            variant="outlined"
+            onKeyUp={props.inputHandler}
+          />
+        </Box>
       ) : (
         <br />
       )}

@@ -3,16 +3,22 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getProposal } from "../Components/customDao";
 import ExecutionFields from "../Components/Elements/ExecutionFields";
-import { execute, getExecutionParams } from "../Components/execute";
+import {
+  execute,
+  getExecutionName,
+  getExecutionParams,
+} from "../Components/execute";
 import { getVerifiedExecutionContracts } from "../Components/ollieDao";
 import { OllieDAOSc, TEMPCustomDAOSc } from "../network";
 import { ethers } from "ethers";
+import { Box } from "@mui/system";
 
 const Execute = () => {
   const { daoAddress } = useParams();
   const { proposalId } = useParams();
   const [executionContract, setExecutionContract] = useState();
   const [executionParams, setExecutionParams] = useState();
+  const [executionName, setExecutionName] = useState();
 
   const [proposal, setProposal] = useState();
 
@@ -59,19 +65,6 @@ const Execute = () => {
     console.log("Data:");
     console.log(dynamicInputLUT);
     const param = typeFormat(dynamicInputLUT);
-    // console.log(Object.values(typeFormat(dynamicInputLUT)));
-
-    // const paramsLUT = ethers.utils.AbiCoder.prototype.encode(
-    //   ["bool[]", "uint[]", "int[]", "string[]", "address[]"],
-    //   [
-    //     dynamicInputLUT.BOOL,
-    //     dynamicInputLUT.UINT,
-    //     dynamicInputLUT.INT,
-    //     dynamicInputLUT.STRING,
-    //     dynamicInputLUT.ADDRESS,
-    //   ]
-    // );
-    // console.log(paramsLUT);
 
     execute(
       daoAddress,
@@ -90,9 +83,11 @@ const Execute = () => {
     async function fetchData() {
       //const response = await getVerifiedExecutionContracts(OllieDAOSc);
       const response2 = await getProposal(daoAddress, proposalId);
+      const exeName = await getExecutionName(response2.execution);
       const params = await getExecutionParams(response2.execution);
       //setVerifiedExecutionContracts(response);
       setExecutionContract(response2.execution);
+      setExecutionName(exeName);
       setProposal(response2);
       setExecutionParams(params);
       console.log(params);
@@ -101,16 +96,36 @@ const Execute = () => {
     fetchData();
   }, []);
   return (
-    <div>
-      <Typography>Execution Contract Address:</Typography>
-      <Typography>{executionContract}</Typography>
+    <Box sx={{ p: 8 }}>
+      <Box display="flex" justifyContent="center" alignItems="center">
+        <Box>
+          <Typography variant="h1">{executionName}</Typography>
+          <Box display="flex" justifyContent="center" alignItems="center">
+            <Typography variant="h5">Execution Contract Address: </Typography>
+            <Typography variant="h5">{executionContract}</Typography>
+          </Box>
+        </Box>
+      </Box>
       {executionParams ? (
-        <ExecutionFields params={executionParams} inputHandler={inputHandler} />
+        <Box display="flex" justifyContent="center" alignItems="center">
+          <ExecutionFields
+            params={executionParams}
+            inputHandler={inputHandler}
+          />
+        </Box>
       ) : (
         <Typography>Loading UI...</Typography>
       )}
-      <Button onClick={submitHandler}>Submit</Button>
-    </div>
+      <Box display="flex" justifyContent="center" alignItems="center">
+        <Button
+          sx={{ margin: 2, p: 2, width: 200 }}
+          variant="contained"
+          onClick={submitHandler}
+        >
+          Submit
+        </Button>
+      </Box>
+    </Box>
   );
 };
 
