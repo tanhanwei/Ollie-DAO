@@ -1,6 +1,6 @@
 import { Button, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 import "@fontsource/roboto/300.css";
 import "@fontsource/roboto/400.css";
@@ -78,13 +78,14 @@ const Dao = () => {
                 </Typography>{" "}
               </Box>
               <Box display="flex" justifyContent="center" alignItems="center">
-                <Button
-                  sx={{ p: 2, width: 300, margin: 4 }}
-                  variant="outlined"
-                  onClick={createProposalHandler}
-                >
-                  Create Proposal
-                </Button>
+                <Link to={"/dao/" + daoAddress + "/propose"}>
+                  <Button
+                    sx={{ p: 2, width: 300, margin: 4 }}
+                    variant="outlined"
+                  >
+                    Create Proposal
+                  </Button>
+                </Link>
               </Box>
             </Box>
           </Box>

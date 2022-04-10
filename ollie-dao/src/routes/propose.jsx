@@ -6,6 +6,7 @@ import {
   MenuItem,
   Select,
   TextField,
+  Typography,
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
@@ -73,7 +74,7 @@ const Propose = () => {
   };
 
   const handleDropDownChange = (event) => {
-    setDetails(event.target.value);
+    setSelectedContract(event.target.value);
   };
 
   const handleButtonClick = async () => {
@@ -83,13 +84,20 @@ const Propose = () => {
       details,
       "0",
       0,
-      TEMPExecutionSc,
+      selectedContract,
       0
     );
     console.log(response);
   };
   return (
     <Box>
+      <Box display="flex" justifyContent="center" alignItems="center">
+        <Box>
+          <Box display="flex" justifyContent="center" alignItems="center">
+            <Typography variant="h1">Create a Proposal</Typography>
+          </Box>
+        </Box>
+      </Box>
       <Box>
         <Box sx={{ p: 10 }}>
           <TextField
@@ -116,14 +124,16 @@ const Propose = () => {
               <Select
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
-                value={0}
-                label="Age"
+                value={selectedContract}
+                label="Execution Contract"
                 onChange={handleDropDownChange}
               >
                 {executors.map((executor) => {
-                  <MenuItem value={executor.contract}>
-                    {executor.name}
-                  </MenuItem>;
+                  return (
+                    <MenuItem value={executor.contract}>
+                      {executor.name}
+                    </MenuItem>
+                  );
                 })}
               </Select>
             </FormControl>
