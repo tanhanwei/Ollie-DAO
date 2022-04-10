@@ -33,30 +33,47 @@ contract EExecutionName is CustomExecutionContract {
             STRING = []
             ADDRESS = []
     */
-    function customExecution(address _dao, uint256 _id, DataTypes.ExecutionParams memory _executionParams) public override {
+    function customExecution(address _dao, uint256 _id, bool[] memory _BOOL, 
+        uint256[] memory _UINT, 
+        int256[] memory _INT, 
+        string[] memory _STRING, 
+        address[] memory _ADDRESS) public  {
         //CUSTOMIZE YOUR EXECUTION HERE
 
         //Create evidence based on Parameter LUT received
-        //createEvidence(_dao, _id, EvidenceType(_executionParams.UINT[0]), _executionParams.STRING[0]);
+        //createEvidence(_dao, _id, EvidenceType(_UINT[0]), _STRING[0]);
         completeExecution(_dao, _id);
     }
 
-    struct ReverseExecutionParams {
-            string[] BOOL;
-            string[] INT;
-            string[] UINT;
-            string[] STRING;
-            string[] ADDRESS;
+    //Use these to generate dynamic UI
+    function deBool () public pure returns (string[] memory) {
+        string[] memory BOOL = new string[](1);
+        BOOL[0] = "Nil";
+        return BOOL;
     }
 
-    function deLUTExecutionParams() public pure returns (ReverseExecutionParams memory){
-        ReverseExecutionParams memory executionParams;
-
-        executionParams.UINT[0] = "Some Parameters";
-        executionParams.STRING[0] = "Sone strings";
-        return executionParams;
+    function deInt () public pure returns (string[] memory) {
+        string[] memory DINT = new string[](1);
+        DINT[0] = "Nil";
+        return DINT;
     }
 
-    //ADD YOUR CUSTOM CODE BELOW
+    function deUint () public pure returns (string[] memory) {
+        string[] memory DUINT = new string[](1);
+        DUINT[0] = "Nil";
+        return DUINT;
+    }
+
+    function deString () public pure returns (string[] memory) {
+        string[] memory DSTRING = new string[](1);
+        DSTRING[0] = "Nil";
+        return DSTRING;
+    }
+
+    function deAddress () public pure returns (string[] memory) {
+        string[] memory DADDRESS = new string[](2);
+        DADDRESS[0] = "Nil";
+        return DADDRESS;
+    }
     
 }
