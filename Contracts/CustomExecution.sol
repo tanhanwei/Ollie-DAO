@@ -41,7 +41,11 @@ contract CustomExecutionContract {
         return executionName;
     }
 
-    function execute (address _dao, DataTypes.ExecutionParams memory _executionParams, bool _isNewExecution, uint256 _id) public {
+    function execute (address _dao, bool[] memory _BOOL, 
+        uint256[] memory _UINT, 
+        int256[] memory _INT, 
+        string[] memory _STRING, 
+        address[] memory _ADDRESS, bool _isNewExecution, uint256 _id) public {
         //if it's a new execution assign a new Execution ID
         if (_isNewExecution) {
             _id = newExecution(_dao);
@@ -49,7 +53,7 @@ contract CustomExecutionContract {
             repeatExecution(_dao, _id);
         }
 
-        customExecution(_dao, _id, _executionParams);
+        customExecution(_dao, _id, _BOOL, _UINT, _INT, _STRING, _ADDRESS);
     }
 
     function newExecution(address _dao) private returns (uint) {
@@ -69,7 +73,11 @@ contract CustomExecutionContract {
     }
 
     // Custom execution is private in case of malicious use.
-    function customExecution(address _dao, uint256 _executionId, DataTypes.ExecutionParams memory _executionParams) public virtual {
+    function customExecution(address _dao, uint256 _executionId, bool[] memory _BOOL, 
+        uint256[] memory _UINT, 
+        int256[] memory _INT, 
+        string[] memory _STRING, 
+        address[] memory _ADDRESS) public virtual {
         //OVERRIDE WITH YOUR CUSTOM EXECUTION IN YOUR SMART CONTRACT
     }
 
