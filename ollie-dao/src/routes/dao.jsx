@@ -13,6 +13,7 @@ import { createProposal } from "../Components/proposal";
 import { Box } from "@mui/system";
 import ProposalCard from "../Components/Elements/ProposalCard";
 import { getExecutionParams } from "../Components/execute";
+import { TEMPExecutionSc } from "../network";
 
 const Dao = () => {
   const { daoAddress } = useParams();
@@ -34,21 +35,19 @@ const Dao = () => {
 
   const createProposalHandler = async () => {
     const response = await createProposal(
-      "0x2c6A9A4A096Ae6a265B70FF31Fb219B78bCBCBF4",
+      daoAddress,
       "Send me money",
       "Once upon a tile I need those money",
       "0",
       200,
-      "0x44fCE80b50Bf5414c24E56bCF5298d52dC6ed5DE",
+      TEMPExecutionSc,
       0
     );
     console.log(response);
   };
 
   const getExeParams = async () => {
-    const response = await getExecutionParams(
-      "0x0b49BC3184aBcfAA6b42ce80413e420769cf9b5a"
-    );
+    const response = await getExecutionParams(TEMPExecutionSc);
     console.log(response);
   };
 

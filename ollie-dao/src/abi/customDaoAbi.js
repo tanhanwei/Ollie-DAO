@@ -3,94 +3,6 @@ export const customDaoAbi = [
     inputs: [
       {
         internalType: "address",
-        name: "_execution",
-        type: "address",
-      },
-      {
-        components: [
-          {
-            internalType: "bool[]",
-            name: "BOOL",
-            type: "bool[]",
-          },
-          {
-            internalType: "uint256[]",
-            name: "UINT",
-            type: "uint256[]",
-          },
-          {
-            internalType: "int256[]",
-            name: "INT",
-            type: "int256[]",
-          },
-          {
-            internalType: "string[]",
-            name: "STRING",
-            type: "string[]",
-          },
-          {
-            internalType: "address[]",
-            name: "ADDRESS",
-            type: "address[]",
-          },
-        ],
-        internalType: "struct DataTypes.ExecutionParams",
-        name: "_executionParams",
-        type: "tuple",
-      },
-      {
-        internalType: "bool",
-        name: "_isNewExecution",
-        type: "bool",
-      },
-      {
-        internalType: "uint256",
-        name: "_id",
-        type: "uint256",
-      },
-    ],
-    name: "executeProposal",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "string",
-        name: "_details",
-        type: "string",
-      },
-      {
-        internalType: "uint256",
-        name: "_executor",
-        type: "uint256",
-      },
-      {
-        internalType: "uint256",
-        name: "_duration",
-        type: "uint256",
-      },
-      {
-        internalType: "address",
-        name: "_execution",
-        type: "address",
-      },
-      {
-        internalType: "enum CustomDao.VoteType",
-        name: "_voteType",
-        type: "uint8",
-      },
-    ],
-    name: "propose",
-    outputs: [],
-    stateMutability: "payable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
         name: "_creator",
         type: "address",
       },
@@ -143,6 +55,54 @@ export const customDaoAbi = [
       },
     ],
     stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "_execution",
+        type: "address",
+      },
+      {
+        internalType: "bool[]",
+        name: "_BOOL",
+        type: "bool[]",
+      },
+      {
+        internalType: "uint256[]",
+        name: "_UINT",
+        type: "uint256[]",
+      },
+      {
+        internalType: "int256[]",
+        name: "_INT",
+        type: "int256[]",
+      },
+      {
+        internalType: "string[]",
+        name: "_STRING",
+        type: "string[]",
+      },
+      {
+        internalType: "address[]",
+        name: "_ADDRESS",
+        type: "address[]",
+      },
+      {
+        internalType: "bool",
+        name: "_isNewExecution",
+        type: "bool",
+      },
+      {
+        internalType: "uint256",
+        name: "_id",
+        type: "uint256",
+      },
+    ],
+    name: "executeProposal",
+    outputs: [],
+    stateMutability: "nonpayable",
     type: "function",
   },
   {
@@ -529,6 +489,39 @@ export const customDaoAbi = [
       },
     ],
     stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "string",
+        name: "_details",
+        type: "string",
+      },
+      {
+        internalType: "uint256",
+        name: "_executor",
+        type: "uint256",
+      },
+      {
+        internalType: "uint256",
+        name: "_duration",
+        type: "uint256",
+      },
+      {
+        internalType: "address",
+        name: "_execution",
+        type: "address",
+      },
+      {
+        internalType: "enum CustomDao.VoteType",
+        name: "_voteType",
+        type: "uint8",
+      },
+    ],
+    name: "propose",
+    outputs: [],
+    stateMutability: "payable",
     type: "function",
   },
 ];

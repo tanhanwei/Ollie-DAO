@@ -21,7 +21,7 @@ export const execute = async (
   console.log("executing...");
   const tx = await customDaoSigner.executeProposal(
     // TODO: try using await?
-    "0x668a944D083ABE136f643d2d35046a7cD1f50f63",
+    executionAddress,
     executionParams,
     isNewExecution,
     id
