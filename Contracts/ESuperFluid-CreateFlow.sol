@@ -1,8 +1,6 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.4;
 
-import "https://github.com/tanhanwei/Ollie-DAO/blob/main/Contracts/DataTypes.sol";
-
 import "https://github.com/tanhanwei/Ollie-DAO/blob/main/Contracts/CustomExecution.sol";
 
 import { 

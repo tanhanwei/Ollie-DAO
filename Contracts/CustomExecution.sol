@@ -1,7 +1,6 @@
 // SPDX-License-Identifier: MIT
 
 pragma solidity ^0.8.13;
-import "https://github.com/tanhanwei/Ollie-DAO/blob/main/Contracts/DataTypes.sol";
 
 contract CustomExecutionContract {
 
@@ -41,8 +40,7 @@ contract CustomExecutionContract {
         return executionName;
     }
 
-    function execute (address _dao,
-        bool[] memory _BOOL, 
+    function execute (address _dao, bool[] memory _BOOL, 
         uint256[] memory _UINT, 
         int256[] memory _INT, 
         string[] memory _STRING, 

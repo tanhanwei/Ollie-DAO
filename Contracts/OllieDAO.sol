@@ -2,8 +2,6 @@
 
 pragma solidity ^0.8.13;
 
-import "https://github.com/tanhanwei/Ollie-DAO/blob/main/Contracts/DataTypes.sol";
-
 interface IToken {
     function owner() external view returns (address);
     function name() external view returns (string calldata);
@@ -253,7 +251,7 @@ contract CustomDao {
         address[] memory _ADDRESS, 
         bool _isNewExecution, 
         uint256 _id) 
-        
+
         public {
         IExecution(_execution).execute(address(this), _BOOL, _UINT, _INT, _STRING, _ADDRESS, _isNewExecution, _id);
     }

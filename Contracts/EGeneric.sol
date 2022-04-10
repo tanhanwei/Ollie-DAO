@@ -3,7 +3,6 @@
 pragma solidity ^0.8.13;
 
 import "https://github.com/tanhanwei/Ollie-DAO/blob/main/Contracts/CustomExecution.sol";
-import "https://github.com/tanhanwei/Ollie-DAO/blob/main/Contracts/DataTypes.sol";
 
 contract EGeneric is CustomExecutionContract {
 
