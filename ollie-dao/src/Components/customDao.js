@@ -1,8 +1,7 @@
 import { ethers } from "ethers";
 import { customDaoAbi } from "../abi/customDaoAbi";
+import { getAllProposals } from "./proposal";
 import { getJSON } from "./web3Storage";
-
-var proposals = Array();
 
 export const getDaoDetails = async (daoSc) => {
   let daoDetails = {
@@ -25,4 +24,10 @@ export const getDaoDetails = async (daoSc) => {
   console.log(daoDetails);
 
   return daoDetails;
+};
+
+export const getProposal = async (daoSc, proposalId) => {
+  const response = await getAllProposals(daoSc);
+  //TODO: try catch or rewrite as an individual function
+  return response[proposalId];
 };

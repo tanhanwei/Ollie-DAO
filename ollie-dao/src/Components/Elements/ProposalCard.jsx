@@ -2,7 +2,7 @@ import { Button, Typography } from "@mui/material";
 import React from "react";
 
 const ProposalCard = (props) => {
-  console.log(props.proposal.title);
+  console.log(props.proposal);
   return (
     <div>
       <Typography variant="h3">{props.proposal.title}</Typography>

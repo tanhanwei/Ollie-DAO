@@ -89,6 +89,6 @@ export const getAllProposals = async (daoSc) => {
   }
 
   //console.log(proposals);
-  //console.log(response[3]["details"]);
+  console.log(response);
   return proposals;
 };
