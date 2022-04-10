@@ -7,7 +7,11 @@ import { ESFCreateFlowAbi } from "../abi/ESFCreateFlowAbi";
 export const execute = async (
   daoSc,
   executionAddress,
-  executionParams,
+  BOOL,
+  UINT,
+  INT,
+  STRING,
+  ADDRESS,
   isNewExecution,
   id
 ) => {
@@ -22,7 +26,11 @@ export const execute = async (
   const tx = await customDaoSigner.executeProposal(
     // TODO: try using await?
     executionAddress,
-    executionParams,
+    BOOL,
+    UINT,
+    INT,
+    STRING,
+    ADDRESS,
     isNewExecution,
     id
   );

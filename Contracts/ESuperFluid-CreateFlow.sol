@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.4;
 
-import "https://github.com/tanhanwei/Ollie-DAO/blob/main/Contracts/CustomExecution.sol";
+import "https://github.com/tanhanwei/Ollie-DAO/blob/ParallelParams/Contracts/CustomExecution.sol";
 
 import { 
     ISuperfluid, ISuperfluidToken, ISuperToken 
@@ -74,7 +74,7 @@ contract ESFCreateFlow is CustomExecutionContract{
         uint256[] memory _UINT, 
         int256[] memory _INT, 
         string[] memory _STRING, 
-        address[] memory _ADDRESS) public {
+        address[] memory _ADDRESS) override public {
         
         //Generate URL to SuperFluid Console as evidence with receiver address
         //maybe can create off-chain?
@@ -82,7 +82,7 @@ contract ESFCreateFlow is CustomExecutionContract{
         // string memory addressString = toAsciiString(_ADDRESS[1]);
         // string memory evidence = concatenate(baseURL, addressString);
 
-        createFlow(ISuperfluidToken(_ADDRESS[0]), _ADDRESS[1], int96(_INT[1]));
+        createFlow(ISuperfluidToken(_ADDRESS[0]), _ADDRESS[1], int96(_INT[0]));
 
         //createEvidence(DAO_ADDRESS, EVIDENCE_TYPE, EVIDENCE)
         createEvidence(_dao, _executionId, EvidenceType(_UINT[0]), _STRING[0]);

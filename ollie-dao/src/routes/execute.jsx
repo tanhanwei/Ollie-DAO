@@ -58,22 +58,32 @@ const Execute = () => {
   function submitHandler() {
     console.log("Data:");
     console.log(dynamicInputLUT);
-    console.log(typeFormat(dynamicInputLUT));
-    console.log(Object.values(typeFormat(dynamicInputLUT)));
+    const param = typeFormat(dynamicInputLUT);
+    // console.log(Object.values(typeFormat(dynamicInputLUT)));
 
-    const paramsLUT = ethers.utils.AbiCoder.prototype.encode(
-      ["bool[]", "uint[]", "int[]", "string[]", "address[]"],
-      [
-        dynamicInputLUT.BOOL,
-        dynamicInputLUT.UINT,
-        dynamicInputLUT.INT,
-        dynamicInputLUT.STRING,
-        dynamicInputLUT.ADDRESS,
-      ]
+    // const paramsLUT = ethers.utils.AbiCoder.prototype.encode(
+    //   ["bool[]", "uint[]", "int[]", "string[]", "address[]"],
+    //   [
+    //     dynamicInputLUT.BOOL,
+    //     dynamicInputLUT.UINT,
+    //     dynamicInputLUT.INT,
+    //     dynamicInputLUT.STRING,
+    //     dynamicInputLUT.ADDRESS,
+    //   ]
+    // );
+    // console.log(paramsLUT);
+
+    execute(
+      daoAddress,
+      executionContract,
+      param.BOOL,
+      param.UINT,
+      param.INT,
+      param.STRING,
+      param.ADDRESS,
+      true,
+      0
     );
-    console.log(paramsLUT);
-
-    execute(executionContract, paramsLUT, true, 0);
   }
 
   useEffect(() => {

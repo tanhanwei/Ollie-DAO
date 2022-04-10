@@ -36,8 +36,8 @@ const Dao = () => {
   const createProposalHandler = async () => {
     const response = await createProposal(
       daoAddress,
-      "Send me money",
-      "Once upon a tile I need those money",
+      "Stream Samuel.ETH at 0.0001ETH/sec",
+      "He is our official solidity developer who works very hard for the company.",
       "0",
       200,
       TEMPExecutionSc,
