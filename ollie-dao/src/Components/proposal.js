@@ -25,7 +25,8 @@ export const createProposal = async (
   //call contract
   const signer = provider.getSigner();
   const customDaoSigner = customDao.connect(signer);
-  const tx = customDaoSigner.propose(
+  const tx = await customDaoSigner.propose(
+    // TODO: try using await?
     url,
     executor,
     duration,
