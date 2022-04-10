@@ -32,9 +32,13 @@ contract EGeneric is CustomExecutionContract {
             ADDRESS = []
     */
 
-    function customExecution(address _dao, uint256 _id, DataTypes.ExecutionParams memory _executionParams) public override {
+    function customExecution(address _dao, uint256 _id, bool[] memory _BOOL, 
+        uint256[] memory _UINT, 
+        int256[] memory _INT, 
+        string[] memory _STRING, 
+        address[] memory _ADDRESS) public {
         //CUSTOMIZE YOUR EXECUTION HERE
-        createEvidence(_dao, _id, EvidenceType(_executionParams.UINT[0]), _executionParams.STRING[0]);
+        createEvidence(_dao, _id, EvidenceType(_UINT[0]), _STRING[0]);
         completeExecution(_dao, _id);
     }
 
