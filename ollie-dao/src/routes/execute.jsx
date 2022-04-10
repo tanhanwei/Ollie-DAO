@@ -1,4 +1,4 @@
-import { Typography } from "@mui/material";
+import { Button, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getProposal } from "../Components/customDao";
@@ -16,10 +16,30 @@ const Execute = () => {
   );
   const [proposal, setProposal] = useState();
 
+  let dynamicInputLUT = {
+    BOOL: ["Nil"],
+    UINT: ["Nil"],
+    INT: ["Nil"],
+    STRING: ["Nil"],
+    ADDRESS: ["Nil"],
+  };
+
+  function inputHandler(TYPE, id) {
+    return function (e) {
+      const value = e.target.value;
+      dynamicInputLUT[TYPE][id] = value;
+    };
+  }
+
+  function submitHandler() {
+    console.log("Data:");
+    console.log(dynamicInputLUT);
+  }
+
   useEffect(() => {
     async function fetchData() {
       //const response = await getVerifiedExecutionContracts(OllieDAOSc);
-      const response2 = await getProposal(TEMPCustomDAOSc, 0);
+      const response2 = await getProposal(daoAddress, proposalId);
       const params = await getExecutionParams(response2.execution);
       //setVerifiedExecutionContracts(response);
       setProposal(response2);
@@ -33,10 +53,11 @@ const Execute = () => {
     <div>
       Execute
       {executionParams ? (
-        <ExecutionFields params={executionParams} />
+        <ExecutionFields params={executionParams} inputHandler={inputHandler} />
       ) : (
-        <Typography>Loading</Typography>
+        <Typography>Loading UI...</Typography>
       )}
+      <Button onClick={submitHandler}>Submit</Button>
     </div>
   );
 };

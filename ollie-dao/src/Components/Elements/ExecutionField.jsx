@@ -6,7 +6,12 @@ const ExecutionField = (props) => {
     <div>
       {" "}
       {props.label != "Nil" ? (
-        <TextField id="outlined-basic" label={props.label} variant="outlined" />
+        <TextField
+          id="outlined-basic"
+          label={props.label}
+          variant="outlined"
+          onKeyUp={props.inputHandler}
+        />
       ) : (
         <br />
       )}
